@@ -1,4 +1,22 @@
 from pathlib import Path
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://c441b85b306e4895beda967e0c0f64cc@o4505163566022656.ingest.sentry.io/4505163567857664",
+    integrations=[
+        DjangoIntegration(),
+    ],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -10,7 +28,8 @@ DEBUG = False
 ALLOWED_HOSTS = [
     '158.160.20.112',
 'localhost',
-    '127.0.0.1'
+    '127.0.0.1',
+'fokin.hopto.org'
 ]
 
 
@@ -107,7 +126,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static_backend'
+STATIC_ROOT = BASE_DIR / 'static_backend'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
